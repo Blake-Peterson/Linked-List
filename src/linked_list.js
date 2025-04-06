@@ -5,46 +5,47 @@ class LinkedList{
     size = 0;
 
     append(value){
-        if(size==0){
-            head = new Node(value, null);
-        }
-        
-        if(this.tail===null && this.head==null){
-          let new_node = new Node(value,null);
-          this.head.value = value;
+        const newNode = new Node(value,)
+        if(this.getSize()==0){
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            this.tail.nextNode = newNode;
+            this.tail = newNode;
         } 
-        size++;
+        this.size++;
     }
 
     prepend(value){
-        if(size==0){
+        if(this.getSize() ===0){
             head = new Node(value, null);
+            this.tail = this.head;
         } else {
             let new_head = new Node(value,null);
-            current = this.head;
+            let current = this.head;
             new_head.nextNode = current;
             this.head = new_head;
         }
         this.size++;
     }
 
-    get size(){
+    getSize(){
         return this.size;
     }
 
-    get head(){
+    getHead(){
         return this.head;
     }
 
-    get tail(){
+    getTail(){
         return this.tail;
     }
 
     at(index){
-        if(size==0){
+        if(this.getSize()==0){
             return null;
         }
-        let current = this.head;
+        let current = this.getHead();
         for(let i=0;i<index;i++){
             current = current.nextNode;
         }
@@ -65,10 +66,11 @@ class LinkedList{
 
     contains(value){
         let current = this.head.nextNode;
-        while(current.nextNode != null){
-            if (current.value == value){
+        while(current.nextNode !== null){
+            if (current.value === value){
                 return true;
             }
+            current = current.nextNode;
         }
         return false;
     }
@@ -80,6 +82,7 @@ class LinkedList{
             if (current.value == value){
                 return index;
             } else {
+                current = current.nextNode;
                 index++;
             }
         }
@@ -90,21 +93,20 @@ class LinkedList{
       let current = this.head;  
       let linked_string = "";
       while(current.nextNode != null){
-        if(current.value !=null){
-            linked_string +=  "( "+ value +" ) -> ";
+        if(current !==null){
+            linked_string +=  `( ${current.value} ) -> `;
             current = current.nextNode;
-        } else{
-            linked_string += "null";
-        }
+        } 
       }
+      linked_string += "null";
       return linked_string;
     }
 }
 
 class Node {
-    constructor(value, nextNode){
-        this.value = null;
-        this.nextNode = null;
+    constructor(value, nextNode=null){
+        this.value = value;
+        this.nextNode = nextNode;
     }
 }
 
